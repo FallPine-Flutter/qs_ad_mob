@@ -13,6 +13,7 @@ dependencies:
   plugin_platform_interface: ^2.0.2
   google_mobile_ads: ^9.0.0   # 广告插件
   qs_log: ^1.0.0  # 日志插件
+  shimmer: ^3.0.0 # 骨架屏
 
 dev_dependencies:
   flutter_test:
