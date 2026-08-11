@@ -1,0 +1,75 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code local settings
+.vscode/
+
+# Flutter / Dart / Pub
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+# Flutter plugins should not commit their root pubspec.lock.
+qs_ad_mob/pubspec.lock
+
+# Generated Flutter registrants
+**/GeneratedPluginRegistrant.*
+
+# Android / Gradle
+.gradle/
+**/.gradle/
+**/local.properties
+**/captures/
+**/.cxx/
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+
+# Keep generated Gradle wrapper scripts and jar out of this plugin repository.
+**/gradlew
+**/gradlew.bat
+**/gradle-wrapper.jar
+
+# Android signing files
+**/key.properties
+**/*.keystore
+**/*.jks
+
+# iOS / Xcode
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/build/
+**/DerivedData/
+**/*.xcuserstate
+**/*.xcuserdata/
+
+# Symbolication / obfuscation
+app.*.symbols
+app.*.map.json
