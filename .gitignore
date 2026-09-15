@@ -47,6 +47,12 @@ test-results/
 # Flutter plugins should not commit their root pubspec.lock.
 qs_ad_mob/pubspec.lock
 
+# Reproducible files generated for bundled Flutter plugin examples.
+**/example/pubspec.lock
+**/example/ios/Podfile
+**/example/ios/Flutter/Debug.xcconfig
+**/example/ios/Flutter/Release.xcconfig
+
 # Generated Flutter registrants
 **/GeneratedPluginRegistrant.*
 
