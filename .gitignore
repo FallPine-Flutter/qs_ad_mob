@@ -4,6 +4,7 @@
 *.pyc
 *.swp
 .DS_Store
+Thumbs.db
 .atom/
 .build/
 .buildlog/
@@ -30,8 +31,18 @@ migrate_working_dir/
 .pub/
 build/
 coverage/
+test-results/
+*.lcov
 **/doc/api/
 **/ios/Flutter/.last_build_id
+
+# FVM keeps the selected SDK as a local symlink/cache. Keep .fvmrc tracked.
+**/.fvm/flutter_sdk
+
+# Local environment files. Keep shareable templates tracked.
+.env
+.env.*
+!.env.example
 
 # Flutter plugins should not commit their root pubspec.lock.
 qs_ad_mob/pubspec.lock
@@ -69,6 +80,10 @@ qs_ad_mob/pubspec.lock
 **/DerivedData/
 **/*.xcuserstate
 **/*.xcuserdata/
+**/*.xcarchive/
+**/*.ipa
+**/*.dSYM/
+**/*.dSYM.zip
 
 # Symbolication / obfuscation
 app.*.symbols

@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  google_mobile_ads: ^9.0.0   # 广告插件
+  google_mobile_ads: ^9.1.0   # 广告插件
   qs_log: ^1.0.0  # 日志插件
   shimmer: ^3.0.0 # 骨架屏
 
