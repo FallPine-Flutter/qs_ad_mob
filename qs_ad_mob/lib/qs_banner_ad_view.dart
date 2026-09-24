@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shimmer/shimmer.dart';
 
-class BannerAdView extends StatelessWidget {
-  const BannerAdView({
+class QsBannerAdView extends StatelessWidget {
+  const QsBannerAdView({
     super.key,
     this.backgroundColor = Colors.transparent,
-    this.size = AdSize.banner,
+    this.size = AdSize.fullBanner,
     this.margin,
     this.padding,
     required this.bannerAd,
@@ -19,7 +19,7 @@ class BannerAdView extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final BannerAd? bannerAd;
 
-// MARK: - Widget
+  // MARK: - Widget
   @override
   Widget build(BuildContext context) {
     if (bannerAd == null) {
@@ -42,6 +42,8 @@ class BannerAdView extends StatelessWidget {
     return Container(
       height: size.height.toDouble() + (padding?.vertical ?? 0.0),
       width: size.width.toDouble() + (padding?.horizontal ?? 0.0),
+      margin: margin,
+      padding: padding,
       color: backgroundColor,
       child: Shimmer.fromColors(
         baseColor: Colors.grey,
@@ -50,21 +52,9 @@ class BannerAdView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              width: 200.0,
-              height: shimmerHeight,
-              color: Colors.white,
-            ),
-            Container(
-              width: 250.0,
-              height: shimmerHeight,
-              color: Colors.white,
-            ),
-            Container(
-              width: 150.0,
-              height: shimmerHeight,
-              color: Colors.white,
-            ),
+            Container(width: 200.0, height: shimmerHeight, color: Colors.white),
+            Container(width: 250.0, height: shimmerHeight, color: Colors.white),
+            Container(width: 150.0, height: shimmerHeight, color: Colors.white),
           ],
         ),
       ),

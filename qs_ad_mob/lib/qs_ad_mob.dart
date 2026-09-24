@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:qs_ad_mob/qs_app_open_ad.dart';
+import 'package:qs_ad_mob/qs_banner_ad.dart';
 import 'package:qs_ad_mob/qs_interstitial_ad.dart';
+import 'package:qs_ad_mob/qs_rewarded_ad.dart';
 import 'package:qs_log/qs_log.dart';
 
 class QsAdMob {
@@ -13,6 +15,10 @@ class QsAdMob {
     required String iosOpenAppAdUnitId,
     required String androidInterstitialAdUnitId,
     required String iosOpenInterstitialUnitId,
+    required String androidBannerAdUnitId,
+    required String iosBannerUnitId,
+    required String androidRewardedAdUnitId,
+    required String iosRewardedAdUnitId,
   }) {
     _testDeviceIds = testDeviceIds;
     QsAppOpenAd.configureAppOpenAd(
@@ -22,6 +28,14 @@ class QsAdMob {
     QsInterstitialAd.configureInterstitialAd(
       androidAdUnitId: androidInterstitialAdUnitId,
       iosAdUnitId: iosOpenInterstitialUnitId,
+    );
+    QsBannerAd.configureBannerAd(
+      androidAdUnitId: androidBannerAdUnitId,
+      iosAdUnitId: iosBannerUnitId,
+    );
+    QsRewardedAd.configureRewardedAd(
+      androidAdUnitId: androidRewardedAdUnitId,
+      iosAdUnitId: iosRewardedAdUnitId,
     );
   }
 
@@ -163,6 +177,69 @@ class QsAdMob {
         );
       },
     );
+  }
+
+  /// 加载激励广告
+  static void loadRewardedAd() {
+    _initialize(
+      onReady: () {
+        QsRewardedAd.getInstance().loadAd(
+          onAdLoaded: () {
+            QsLog.info('激励广告加载成功');
+          },
+        );
+      },
+    );
+  }
+
+  /// 显示激励广告
+  static void showRewardedAd({
+    required VoidCallback onShowing,
+    required VoidCallback onAdDismiss,
+    required VoidCallback onError,
+    required VoidCallback onAdClicked,
+    required OnPaidEventCallback onPaidEvent,
+    required VoidCallback onUserEarnedReward,
+  }) {
+    _initialize(
+      onReady: () {
+        QsRewardedAd.getInstance().showAd(
+          onShowing: onShowing,
+          onAdDismiss: onAdDismiss,
+          onError: onError,
+          onAdClicked: onAdClicked,
+          onPaidEvent: onPaidEvent,
+          onUserEarnedReward: onUserEarnedReward,
+        );
+      },
+    );
+  }
+
+  /// 加载banner广告
+  static void loadBannerAd({
+    required BannerAdPosition position,
+    required double adWidth,
+    required OnPaidEventCallback onPaidEvent,
+  }) {
+    _initialize(
+      onReady: () async {
+        // 加载
+        final size = await AdSize.getLargeAnchoredAdaptiveBannerAdSize(
+          adWidth.truncate().toInt(),
+        );
+
+        QsBannerAd.getInstance().loadAd(
+          position: position,
+          adSize: size ?? AdSize.fullBanner,
+          onPaidEvent: onPaidEvent,
+        );
+      },
+    );
+  }
+
+  /// Banner 广告成功加载通知流
+  static Stream<BannerAd> get bannerAdStream {
+    return QsBannerAd.getInstance().bannerAdStream;
   }
 
   /// 重置用户隐私同意情况
