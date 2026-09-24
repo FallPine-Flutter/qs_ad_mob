@@ -179,21 +179,9 @@ class QsAdMob {
     );
   }
 
-  /// 加载激励广告
-  static void loadRewardedAd() {
-    _initialize(
-      onReady: () {
-        QsRewardedAd.getInstance().loadAd(
-          onAdLoaded: () {
-            QsLog.info('激励广告加载成功');
-          },
-        );
-      },
-    );
-  }
-
   /// 显示激励广告
   static void showRewardedAd({
+    required bool isShowLoading,
     required VoidCallback onShowing,
     required VoidCallback onAdDismiss,
     required VoidCallback onError,
@@ -204,6 +192,7 @@ class QsAdMob {
     _initialize(
       onReady: () {
         QsRewardedAd.getInstance().showAd(
+          isShowLoading: isShowLoading,
           onShowing: onShowing,
           onAdDismiss: onAdDismiss,
           onError: onError,

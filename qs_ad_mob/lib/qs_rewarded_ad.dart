@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:qs_ad_mob/qs_ad_mob.dart';
 import 'package:qs_log/qs_log.dart';
+import 'package:qs_toast/qs_toast.dart';
 
 class QsRewardedAd {
   /// Funcs
@@ -29,7 +30,10 @@ class QsRewardedAd {
   }
 
   /// 加载广告
-  Future<void> loadAd({required VoidCallback onAdLoaded}) async {
+  Future<void> _loadAd({
+    required bool isShowLoading,
+    required VoidCallback onAdLoaded,
+  }) async {
     if (_isLoadingAd || _rewardedAd != null) {
       QsLog.info('激励广告正在加载中，忽略重复加载请求');
       return;
@@ -43,6 +47,9 @@ class QsRewardedAd {
       _isLoadingAd = false;
       return;
     }
+    if (isShowLoading) {
+      QsToast.loading();
+    }
 
     RewardedAd.load(
       adUnitId: _adUnitId,
@@ -55,11 +62,17 @@ class QsRewardedAd {
           _rewardedAd = ad;
           _isLoadingAd = false;
           onAdLoaded();
+          if (isShowLoading) {
+            QsToast.dismiss();
+          }
         },
         onAdFailedToLoad: (LoadAdError error) {
           // Called when an ad request failed.
           QsLog.error('激励广告加载失败: $error');
           _isLoadingAd = false;
+          if (isShowLoading) {
+            QsToast.dismiss();
+          }
         },
       ),
     );
@@ -67,6 +80,7 @@ class QsRewardedAd {
 
   /// 展示广告
   void showAd({
+    required bool isShowLoading,
     required VoidCallback onShowing,
     required VoidCallback onAdDismiss,
     required VoidCallback onError,
@@ -77,9 +91,11 @@ class QsRewardedAd {
     if (!_isAdAvailable) {
       QsLog.info('激励广告未准备好，开始加载广告');
       // 加载广告
-      loadAd(
+      _loadAd(
+        isShowLoading: isShowLoading,
         onAdLoaded: () {
           showAd(
+            isShowLoading: isShowLoading,
             onShowing: onShowing,
             onAdDismiss: onAdDismiss,
             onError: onError,
@@ -117,7 +133,6 @@ class QsRewardedAd {
         _isShowingAd = false;
         ad.dispose();
         _rewardedAd = null;
-        loadAd(onAdLoaded: () {});
         onError();
       },
       onAdDismissedFullScreenContent: (ad) {
@@ -125,7 +140,6 @@ class QsRewardedAd {
         _isShowingAd = false;
         ad.dispose();
         _rewardedAd = null;
-        loadAd(onAdLoaded: () {});
         onAdDismiss();
       },
       onAdImpression: (ad) {

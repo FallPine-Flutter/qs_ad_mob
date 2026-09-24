@@ -14,6 +14,7 @@ dependencies:
   google_mobile_ads: ^9.1.0   # 广告插件
   qs_log: ^1.0.0  # 日志插件
   shimmer: ^3.0.0 # 骨架屏
+  qs_toast: ^1.0.2 # 提示插件
 
 dev_dependencies:
   flutter_test:
